@@ -14,8 +14,18 @@ from utils.worksheet_utils import (
     generate_plan, get_topic_summary, get_alternates_for_topic,
     TOPIC_LABELS, LITERACY_TOPICS, NUMERACY_TOPICS
 )
-from utils.pdf_utils import build_day_pdf
-from utils.pdf_parser import detect_topics, summarise_detected
+try:
+    from utils.pdf_utils import build_day_pdf
+except Exception as _pdf_err:
+    def build_day_pdf(*a, **kw):
+        raise RuntimeError(f"PDF library not available: {_pdf_err}")
+
+# pdf_parser imports pypdf — import lazily to avoid crashing whole app on startup
+def _get_pdf_parser():
+    from utils.pdf_parser import detect_topics, summarise_detected
+    return detect_topics, summarise_detected
+
+APP_VERSION = "v1.3"
 
 # ── Init ──────────────────────────────────────────────────────────────────────
 init_db()
@@ -84,7 +94,7 @@ with st.sidebar:
 # PAGE: HOME
 # ══════════════════════════════════════════════════════════════════════════════
 def page_home():
-    st.markdown("# 🐱 Holiday Learning Planner")
+    st.markdown(f"# 🐱 Holiday Learning Planner <small style='font-size:0.4em;color:#aaa'>{APP_VERSION}</small>", unsafe_allow_html=True)
     st.markdown("#### Personalised daily practice sheets for your Grade 2 star ⭐")
     st.markdown("---")
 
@@ -192,6 +202,7 @@ def page_new_plan():
                 else:
                     with st.spinner("🐾 Reading PDF and detecting topics…"):
                         pdf_bytes = uploaded.read()
+                        detect_topics, _ = _get_pdf_parser()
                         detected, _ = detect_topics(pdf_bytes)
                         file_id = save_course_file(
                             file_label, uploaded.name, pdf_bytes, detected
@@ -225,6 +236,7 @@ def page_new_plan():
                     "Tick or untick to customise what's covered.")
 
         detected = st.session_state.np_detected
+        _, summarise_detected = _get_pdf_parser()
         topic_list = summarise_detected(detected, TOPIC_LABELS)
 
         lit_topics = [(k, l, d) for k, l, d in topic_list if k in LITERACY_TOPICS]
