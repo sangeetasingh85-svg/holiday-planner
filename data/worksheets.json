@@ -1,0 +1,379 @@
+{
+  "literacy": {
+    "pronouns": [
+      {
+        "id": "lit_pro_1",
+        "title": "Personal Pronouns",
+        "url": "https://www.k5learning.com/worksheets/grammar/grade-2-personal-pronouns-a.pdf",
+        "source": "K5 Learning",
+        "description": "Identify pronouns and the nouns they replace"
+      },
+      {
+        "id": "lit_pro_2",
+        "title": "Using Pronouns in Sentences",
+        "url": "https://www.k5learning.com/worksheets/grammar/grade-2-using-pronouns-a.pdf",
+        "source": "K5 Learning",
+        "description": "Practice using subject and object pronouns in sentences"
+      },
+      {
+        "id": "lit_pro_3",
+        "title": "Pronouns – I or Me",
+        "url": "https://www.k5learning.com/worksheets/grammar/grade-2-pronouns-i-me-a.pdf",
+        "source": "K5 Learning",
+        "description": "Choose correctly between subject pronoun I and object pronoun me"
+      },
+      {
+        "id": "lit_pro_4",
+        "title": "Reflexive Pronouns",
+        "url": "https://www.k5learning.com/worksheets/grammar/grade-2-pronouns-a.pdf",
+        "source": "K5 Learning",
+        "description": "Match reflexive pronouns: myself, yourself, himself, herself"
+      },
+      {
+        "id": "lit_pro_5",
+        "title": "Identify Reflexive Pronouns",
+        "url": "https://www.k5learning.com/worksheets/grammar/grade-2-grammar-reflexive-pronouns-a.pdf",
+        "source": "K5 Learning",
+        "description": "Identify and underline reflexive pronouns in sentences"
+      },
+      {
+        "id": "lit_pro_6",
+        "title": "Write Reflexive Pronouns",
+        "url": "https://www.k5learning.com/worksheets/grammar/grade-2-reflexive-pronouns-b.pdf",
+        "source": "K5 Learning",
+        "description": "Complete sentences with the correct reflexive pronoun"
+      }
+    ],
+    "contractions": [
+      {
+        "id": "lit_con_1",
+        "title": "Apostrophes and Contractions – A",
+        "url": "https://www.k5learning.com/worksheets/grammar/grade-2-apostrophes-contractions-a.pdf",
+        "source": "K5 Learning",
+        "description": "Form contractions using apostrophes (isn't, don't, can't)"
+      },
+      {
+        "id": "lit_con_2",
+        "title": "Apostrophes and Contractions – B",
+        "url": "https://www.k5learning.com/worksheets/grammar/grade-2-apostrophes-contractions-b.pdf",
+        "source": "K5 Learning",
+        "description": "Expand contractions back into two words"
+      },
+      {
+        "id": "lit_con_3",
+        "title": "Apostrophes and Contractions – C",
+        "url": "https://www.k5learning.com/worksheets/grammar/grade-2-apostrophes-contractions-c.pdf",
+        "source": "K5 Learning",
+        "description": "Mixed contraction practice – form and expand"
+      },
+      {
+        "id": "lit_con_4",
+        "title": "They're, Their & There",
+        "url": "https://www.k5learning.com/worksheets/grammar/grade-2-common-apostrophes-a.pdf",
+        "source": "K5 Learning",
+        "description": "Distinguish between commonly confused contraction words"
+      },
+      {
+        "id": "lit_con_5",
+        "title": "They're, Their & There – B",
+        "url": "https://www.k5learning.com/worksheets/grammar/grade-2-common-apostrophes-b.pdf",
+        "source": "K5 Learning",
+        "description": "Additional practice with they're, their, and there"
+      }
+    ],
+    "homophones": [
+      {
+        "id": "lit_hom_1",
+        "title": "Homophones – Set 2",
+        "url": "https://www.k5learning.com/worksheets/vocabulary/2nd-grade-homophones-2.pdf",
+        "source": "K5 Learning",
+        "description": "Choose the correct homophone to complete each sentence"
+      },
+      {
+        "id": "lit_hom_2",
+        "title": "Homophones – Set 3",
+        "url": "https://www.k5learning.com/worksheets/vocabulary/2nd-grade-homophones-3.pdf",
+        "source": "K5 Learning",
+        "description": "Practice with there/their/they're, where/wear, to/too/two"
+      },
+      {
+        "id": "lit_hom_3",
+        "title": "Homophones – Set 5",
+        "url": "https://www.k5learning.com/worksheets/vocabulary/2nd-grade-homophones-5.pdf",
+        "source": "K5 Learning",
+        "description": "Mixed homophones in reading and writing context"
+      }
+    ],
+    "interjections": [
+      {
+        "id": "lit_int_1",
+        "title": "Commas After Introductory Words (Yes, No, Sure)",
+        "url": "https://www.k5learning.com/worksheets/grammar/grade-2-common-apostrophes-a.pdf",
+        "source": "K5 Learning",
+        "description": "Practice punctuating interjections and introductory words with commas"
+      },
+      {
+        "id": "lit_int_2",
+        "title": "Exclamation Marks – Interjections",
+        "url": "https://www.k5learning.com/worksheets/grammar/grade-2-apostrophes-contractions-c.pdf",
+        "source": "K5 Learning",
+        "description": "Identify strong feeling words and use exclamation marks correctly"
+      }
+    ],
+    "suffix_prefix": [
+      {
+        "id": "lit_suf_1",
+        "title": "Prefixes – Worksheet 1",
+        "url": "https://www.k5learning.com/worksheets/vocabulary/grade-2-prefixes-1.pdf",
+        "source": "K5 Learning",
+        "description": "Identify and segment prefixes un- and re- in words"
+      },
+      {
+        "id": "lit_suf_2",
+        "title": "Prefixes – Worksheet 2",
+        "url": "https://www.k5learning.com/worksheets/vocabulary/grade-2-prefixes-2.pdf",
+        "source": "K5 Learning",
+        "description": "More prefix practice with dis-, mis-, pre-"
+      },
+      {
+        "id": "lit_suf_3",
+        "title": "Using Prefixes in Sentences",
+        "url": "https://www.k5learning.com/worksheets/vocabulary/grade-2-identify-prefixes-2.pdf",
+        "source": "K5 Learning",
+        "description": "Choose the correct prefix to complete sentences"
+      },
+      {
+        "id": "lit_suf_4",
+        "title": "Suffixes – Worksheet 1",
+        "url": "https://www.k5learning.com/worksheets/vocabulary/grade-2-suffixes-1.pdf",
+        "source": "K5 Learning",
+        "description": "Segment words into suffix (-ful, -less, -ness) and root"
+      },
+      {
+        "id": "lit_suf_5",
+        "title": "Using Suffixes in Sentences",
+        "url": "https://www.k5learning.com/worksheets/vocabulary/grade-2-identify-suffixes-2.pdf",
+        "source": "K5 Learning",
+        "description": "Select the correct suffix to complete each sentence"
+      }
+    ],
+    "vocabulary": [
+      {
+        "id": "lit_voc_1",
+        "title": "Words Ending in -tion and -sion",
+        "url": "https://www.k5learning.com/worksheets/spelling/grade-2-sion-tion-words.pdf",
+        "source": "K5 Learning",
+        "description": "Spell and use words ending in -tion and -sion (action, station, vision)"
+      },
+      {
+        "id": "lit_voc_2",
+        "title": "-tion / -sion Words Spelling List",
+        "url": "https://www.k5learning.com/worksheets/spelling/grade-2-spelling-list-sion-tion-words.pdf",
+        "source": "K5 Learning",
+        "description": "Spelling list and practice for -tion / -sion word patterns"
+      }
+    ],
+    "research_writing": [
+      {
+        "id": "lit_rw_1",
+        "title": "Reading Comprehension – Story Elements",
+        "url": "https://www.k5learning.com/worksheets/reading-comprehension/grade-2-story-elements-a.pdf",
+        "source": "K5 Learning",
+        "description": "Identify characters, setting, problem and events in a story"
+      },
+      {
+        "id": "lit_rw_2",
+        "title": "Reading Comprehension – Main Idea A",
+        "url": "https://www.k5learning.com/worksheets/reading-comprehension/grade-2-main-idea-a.pdf",
+        "source": "K5 Learning",
+        "description": "Find the main idea and supporting details in a passage"
+      },
+      {
+        "id": "lit_rw_3",
+        "title": "Reading Comprehension – Main Idea B",
+        "url": "https://www.k5learning.com/worksheets/reading-comprehension/grade-2-main-idea-b.pdf",
+        "source": "K5 Learning",
+        "description": "More main idea practice with short passages"
+      },
+      {
+        "id": "lit_rw_4",
+        "title": "Reading Comprehension – 5 Ws",
+        "url": "https://www.k5learning.com/worksheets/reading-comprehension/grade-2-five-w-bsd.pdf",
+        "source": "K5 Learning",
+        "description": "Answer who, what, when, where and why questions from a passage"
+      },
+      {
+        "id": "lit_rw_5",
+        "title": "Fact and Opinion",
+        "url": "https://www.k5learning.com/worksheets/reading-comprehension/grade-2-fact-opinion-a.pdf",
+        "source": "K5 Learning",
+        "description": "Distinguish between facts and opinions in sentences"
+      },
+      {
+        "id": "lit_rw_6",
+        "title": "Reading Comprehension – Character Traits",
+        "url": "https://www.k5learning.com/worksheets/reading-comprehension/grade-2-character-traits-mae.pdf",
+        "source": "K5 Learning",
+        "description": "Identify character traits from a reading passage"
+      }
+    ]
+  },
+  "numeracy": {
+    "division_equal_groups": [
+      {
+        "id": "num_deg_1",
+        "title": "Division – Equal Groups (Arrays)",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-multiplication-arrays-a.pdf",
+        "source": "K5 Learning",
+        "description": "Understand equal groups and arrays as a foundation for division"
+      },
+      {
+        "id": "num_deg_2",
+        "title": "Division – Equal Groups Word Problems",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-multiplication-word-problems-a.pdf",
+        "source": "K5 Learning",
+        "description": "Real-life equal grouping problems that introduce division thinking"
+      }
+    ],
+    "division_repeated_subtraction": [
+      {
+        "id": "num_drs_1",
+        "title": "Division – Arrays and Equal Groups B",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-multiplication-arrays-b.pdf",
+        "source": "K5 Learning",
+        "description": "Use repeated grouping strategies to find how many groups"
+      },
+      {
+        "id": "num_drs_2",
+        "title": "Division – Equal Shares Word Problems B",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-multiplication-word-problems-b.pdf",
+        "source": "K5 Learning",
+        "description": "Word problems using repeated subtraction thinking to divide equally"
+      }
+    ],
+    "division_number_line": [
+      {
+        "id": "num_dnl_1",
+        "title": "Number Line – Addition and Subtraction",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-number-line-addition-a.pdf",
+        "source": "K5 Learning",
+        "description": "Use number lines with equal jumps – foundational skill for division"
+      },
+      {
+        "id": "num_dnl_2",
+        "title": "Number Line – Skip Counting",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-skip-counting-number-line-a.pdf",
+        "source": "K5 Learning",
+        "description": "Skip count on number lines in equal steps to model division"
+      }
+    ],
+    "division_fact_families": [
+      {
+        "id": "num_dff_1",
+        "title": "Multiplication Fact Families",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-fact-families-multiplication-a.pdf",
+        "source": "K5 Learning",
+        "description": "Complete fact family triangles linking multiplication and division"
+      },
+      {
+        "id": "num_dff_2",
+        "title": "Fact Families – Multiplication and Division B",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-fact-families-multiplication-b.pdf",
+        "source": "K5 Learning",
+        "description": "Write all 4 facts in a multiplication/division fact family"
+      }
+    ],
+    "division_word_problems": [
+      {
+        "id": "num_dwp_1",
+        "title": "Division Word Problems – Equal Sharing A",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-multiplication-word-problems-c.pdf",
+        "source": "K5 Learning",
+        "description": "Solve real-life problems about sharing equally into groups"
+      },
+      {
+        "id": "num_dwp_2",
+        "title": "Division Word Problems – Mixed B",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-multiplication-word-problems-d.pdf",
+        "source": "K5 Learning",
+        "description": "Mixed word problems involving grouping and equal sharing"
+      }
+    ],
+    "measurement_length": [
+      {
+        "id": "num_mel_1",
+        "title": "Units of Length – Metric A",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-measurement-units-of-length-metric-a.pdf",
+        "source": "K5 Learning",
+        "description": "Measure objects using centimetres and metres"
+      },
+      {
+        "id": "num_mel_2",
+        "title": "Metres and Centimetres",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-metric-units-length-cm-m-a.pdf",
+        "source": "K5 Learning",
+        "description": "Convert between metres and centimetres"
+      },
+      {
+        "id": "num_mel_3",
+        "title": "Units of Length – Version D",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-measurement-units-of-length-d.pdf",
+        "source": "K5 Learning",
+        "description": "Compare and order objects by length using standard units"
+      },
+      {
+        "id": "num_mel_4",
+        "title": "Metric Length – Cm and M (Version D)",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-metric-units-length-cm-m-d.pdf",
+        "source": "K5 Learning",
+        "description": "Additional metric length conversion practice"
+      }
+    ],
+    "measurement_mass": [
+      {
+        "id": "num_mem_1",
+        "title": "Mass – Kilograms and Grams B",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-metric-units-mass-kg-gm-b.pdf",
+        "source": "K5 Learning",
+        "description": "Measure and compare mass using kilograms and grams"
+      },
+      {
+        "id": "num_mem_2",
+        "title": "Mass – Kilograms and Grams D",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-metric-units-mass-kg-gm-d.pdf",
+        "source": "K5 Learning",
+        "description": "More mass measurement practice with kg and g"
+      },
+      {
+        "id": "num_mem_3",
+        "title": "Weight in Kilograms",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-measurement-weight-kilograms-c.pdf",
+        "source": "K5 Learning",
+        "description": "Read scales and solve problems using kilograms"
+      }
+    ],
+    "measurement_capacity": [
+      {
+        "id": "num_mec_1",
+        "title": "Capacity – Litres and Millilitres A",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-metric-units-capacity-l-ml-a.pdf",
+        "source": "K5 Learning",
+        "description": "Measure and compare capacity using litres and millilitres"
+      },
+      {
+        "id": "num_mec_2",
+        "title": "More or Less Than 1 Litre",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-measurement-capacity-liters-b.pdf",
+        "source": "K5 Learning",
+        "description": "Estimate and compare capacity – more or less than 1 litre"
+      },
+      {
+        "id": "num_mec_3",
+        "title": "Capacity – Litres and Millilitres F",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-metric-units-capacity-l-ml-f.pdf",
+        "source": "K5 Learning",
+        "description": "Additional capacity measurement and conversion practice"
+      }
+    ]
+  }
+}
