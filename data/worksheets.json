@@ -254,24 +254,24 @@
     "division_number_line": [
       {
         "id": "num_dnl_1",
-        "title": "Number Line – Addition and Subtraction",
-        "url": "https://www.k5learning.com/worksheets/math/grade-2-number-line-addition-a.pdf",
+        "title": "Division – Equal Groups with Arrays C",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-multiplication-word-problems-c.pdf",
         "source": "K5 Learning",
-        "description": "Use number lines with equal jumps – foundational skill for division"
+        "description": "Use equal grouping strategies on a number line to solve division"
       },
       {
         "id": "num_dnl_2",
-        "title": "Number Line – Skip Counting",
-        "url": "https://www.k5learning.com/worksheets/math/grade-2-skip-counting-number-line-a.pdf",
+        "title": "Division – Equal Groups with Arrays D",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-multiplication-word-problems-d.pdf",
         "source": "K5 Learning",
-        "description": "Skip count on number lines in equal steps to model division"
+        "description": "Apply number line thinking to equal sharing problems"
       }
     ],
     "division_fact_families": [
       {
         "id": "num_dff_1",
-        "title": "Multiplication Fact Families",
-        "url": "https://www.k5learning.com/worksheets/math/grade-2-fact-families-multiplication-a.pdf",
+        "title": "Fact Families – Multiplication and Division",
+        "url": "https://www.k5learning.com/worksheets/math/grade-2-fact-families-a.pdf",
         "source": "K5 Learning",
         "description": "Complete fact family triangles linking multiplication and division"
       },
