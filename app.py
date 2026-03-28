@@ -5,12 +5,17 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent))
 
-from utils.db_utils import init_db, save_plan, get_all_plans, get_plan, delete_plan, update_plan_data, get_all_used_worksheet_ids
+from utils.db_utils import (
+    init_db, save_plan, get_all_plans, get_plan, delete_plan,
+    update_plan_data, get_all_used_worksheet_ids,
+    save_course_file, get_all_course_files, get_course_file, delete_course_file
+)
 from utils.worksheet_utils import (
     generate_plan, get_topic_summary, get_alternates_for_topic,
     TOPIC_LABELS, LITERACY_TOPICS, NUMERACY_TOPICS
 )
 from utils.pdf_utils import build_day_pdf
+from utils.pdf_parser import detect_topics, summarise_detected
 
 # ── Init ──────────────────────────────────────────────────────────────────────
 init_db()
@@ -134,97 +139,240 @@ def page_home():
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# PAGE: NEW PLAN
+# PAGE: NEW PLAN  (3-step flow)
 # ══════════════════════════════════════════════════════════════════════════════
 def page_new_plan():
     st.markdown("# ✨ Create a New Holiday Plan")
     st.markdown("---")
 
-    with st.form("new_plan_form"):
+    # Step state
+    if "np_step" not in st.session_state:
+        st.session_state.np_step = 1
+    if "np_course_file_id" not in st.session_state:
+        st.session_state.np_course_file_id = None
+    if "np_detected" not in st.session_state:
+        st.session_state.np_detected = {}
+
+    step = st.session_state.np_step
+
+    # ── Step indicator ────────────────────────────────────────────────────────
+    cols = st.columns(3)
+    for i, label in enumerate(["1. Course File", "2. Topics", "3. Plan Details"], 1):
+        with cols[i - 1]:
+            if i == step:
+                st.markdown(f"**🔵 {label}**")
+            elif i < step:
+                st.markdown(f"✅ {label}")
+            else:
+                st.markdown(f"⬜ {label}")
+    st.markdown("---")
+
+    # ══ STEP 1: Course File ═══════════════════════════════════════════════════
+    if step == 1:
+        st.markdown("### 📂 Step 1 – Choose a Course File")
+        st.markdown("Upload your school's unit PDF so the app can detect topics, "
+                    "or pick one you've uploaded before.")
+
+        existing = get_all_course_files()
+        tab_new, tab_existing = st.tabs(["⬆️ Upload new PDF", "📚 Use a previous file"])
+
+        with tab_new:
+            uploaded = st.file_uploader(
+                "Upload course PDF (Literacy or Numeracy booklet)",
+                type=["pdf"], key="course_upload"
+            )
+            file_label = st.text_input(
+                "Give this file a name",
+                placeholder="e.g. Unit 5 – Literacy (2025)",
+                key="course_label"
+            )
+            if st.button("Analyse PDF →", disabled=uploaded is None, use_container_width=True):
+                if not file_label:
+                    st.error("Please give the file a name first.")
+                else:
+                    with st.spinner("🐾 Reading PDF and detecting topics…"):
+                        pdf_bytes = uploaded.read()
+                        detected, _ = detect_topics(pdf_bytes)
+                        file_id = save_course_file(
+                            file_label, uploaded.name, pdf_bytes, detected
+                        )
+                    st.session_state.np_course_file_id = file_id
+                    st.session_state.np_detected = detected
+                    st.session_state.np_step = 2
+                    st.rerun()
+
+        with tab_existing:
+            if not existing:
+                st.info("No course files uploaded yet. Upload one in the tab above.")
+            else:
+                for cf in existing:
+                    c1, c2 = st.columns([4, 1])
+                    with c1:
+                        st.markdown(f"**{cf['name']}**")
+                        st.caption(f"Uploaded {cf['uploaded_at'][:10]}  ·  {cf['filename']}")
+                    with c2:
+                        if st.button("Use →", key=f"use_cf_{cf['id']}"):
+                            full = get_course_file(cf["id"])
+                            st.session_state.np_course_file_id = cf["id"]
+                            st.session_state.np_detected = full["detected_topics"]
+                            st.session_state.np_step = 2
+                            st.rerun()
+
+    # ══ STEP 2: Topics ════════════════════════════════════════════════════════
+    elif step == 2:
+        st.markdown("### 📋 Step 2 – Confirm Topics")
+        st.markdown("Topics detected from your PDF are pre-ticked. "
+                    "Tick or untick to customise what's covered.")
+
+        detected = st.session_state.np_detected
+        topic_list = summarise_detected(detected, TOPIC_LABELS)
+
+        lit_topics = [(k, l, d) for k, l, d in topic_list if k in LITERACY_TOPICS]
+        num_topics = [(k, l, d) for k, l, d in topic_list if k in NUMERACY_TOPICS]
+
+        col_lit, col_num = st.columns(2)
+        selected_lit, selected_num = [], []
+
+        with col_lit:
+            st.markdown("#### 📗 Literacy")
+            for key, label, det in lit_topics:
+                icon = "🟢" if det else "⚪"
+                if st.checkbox(f"{icon} {label}", value=det, key=f"s2_lit_{key}"):
+                    selected_lit.append(key)
+
+        with col_num:
+            st.markdown("#### 📘 Numeracy")
+            for key, label, det in num_topics:
+                icon = "🟢" if det else "⚪"
+                if st.checkbox(f"{icon} {label}", value=det, key=f"s2_num_{key}"):
+                    selected_num.append(key)
+
+        st.info("⚡ **Speed Math** (20 single-digit addition & subtraction problems) "
+                "is included every day automatically.")
+
+        c1, c2 = st.columns(2)
+        with c1:
+            if st.button("← Back", use_container_width=True):
+                st.session_state.np_step = 1
+                st.rerun()
+        with c2:
+            if st.button("Next →", use_container_width=True):
+                if not selected_lit:
+                    st.error("Select at least one literacy topic.")
+                elif not selected_num:
+                    st.error("Select at least one numeracy topic.")
+                else:
+                    st.session_state.np_selected_lit = selected_lit
+                    st.session_state.np_selected_num = selected_num
+                    st.session_state.np_step = 3
+                    st.rerun()
+
+    # ══ STEP 3: Plan Details ══════════════════════════════════════════════════
+    elif step == 3:
+        st.markdown("### 📝 Step 3 – Plan Details")
+
         col1, col2 = st.columns(2)
         with col1:
-            plan_name = st.text_input("Plan name", placeholder="e.g. Summer Break 2025")
+            plan_name = st.text_input("Plan name", placeholder="e.g. Easter Break 2025")
             holiday_name = st.text_input("Holiday name (optional)", placeholder="e.g. Easter Holidays")
         with col2:
             num_days = st.number_input("Number of holiday days", min_value=1, max_value=30, value=5)
+            avoid_repeats = st.checkbox(
+                "Avoid worksheets used in previous plans", value=True,
+                help="The planner won't reuse worksheets from your older holiday plans."
+            )
 
-        st.markdown("#### 📗 Literacy Topics to include")
-        lit_cols = st.columns(3)
-        selected_lit = []
-        for i, t in enumerate(LITERACY_TOPICS):
-            with lit_cols[i % 3]:
-                if st.checkbox(TOPIC_LABELS[t], value=True, key=f"lit_{t}"):
-                    selected_lit.append(t)
+        # Preview selected topics
+        with st.expander("📋 Topics selected (from Step 2)"):
+            sc1, sc2 = st.columns(2)
+            with sc1:
+                st.markdown("**Literacy**")
+                for t in st.session_state.get("np_selected_lit", []):
+                    st.markdown(f"  • {TOPIC_LABELS.get(t, t)}")
+            with sc2:
+                st.markdown("**Numeracy**")
+                for t in st.session_state.get("np_selected_num", []):
+                    st.markdown(f"  • {TOPIC_LABELS.get(t, t)}")
 
-        st.markdown("#### 📘 Numeracy Topics to include")
-        num_cols = st.columns(3)
-        selected_num = []
-        for i, t in enumerate(NUMERACY_TOPICS):
-            with num_cols[i % 3]:
-                if st.checkbox(TOPIC_LABELS[t], value=True, key=f"num_{t}"):
-                    selected_num.append(t)
-
-        st.markdown("#### ⚡ Speed Math")
-        st.info("20 single-digit addition & subtraction problems are included **every day** automatically.")
-
-        avoid_repeats = st.checkbox(
-            "Avoid worksheets used in previous plans", value=True,
-            help="When checked, the planner will not reuse worksheets from your older holiday plans."
-        )
-
-        submitted = st.form_submit_button("🐱 Generate Plan", use_container_width=True)
-
-    if submitted:
-        if not plan_name:
-            st.error("Please enter a plan name.")
-            return
-        if not selected_lit:
-            st.error("Please select at least one literacy topic.")
-            return
-        if not selected_num:
-            st.error("Please select at least one numeracy topic.")
-            return
-
-        with st.spinner("🐾 Building your plan… finding worksheets…"):
-            global_used = get_all_used_worksheet_ids() if avoid_repeats else set()
-            plan_data = generate_plan(num_days, selected_lit, selected_num, global_used)
-            plan_id = save_plan(plan_name, holiday_name, num_days, plan_data)
-
-        st.success(f"✅ Plan '{plan_name}' created for {num_days} days!")
-        st.session_state.view_plan_id = plan_id
-        st.session_state.page = "view_plan"
-        st.rerun()
+        c1, c2 = st.columns(2)
+        with c1:
+            if st.button("← Back", use_container_width=True):
+                st.session_state.np_step = 2
+                st.rerun()
+        with c2:
+            if st.button("🐱 Generate Plan", use_container_width=True, type="primary"):
+                if not plan_name:
+                    st.error("Please enter a plan name.")
+                else:
+                    selected_lit = st.session_state.get("np_selected_lit", [])
+                    selected_num = st.session_state.get("np_selected_num", [])
+                    with st.spinner("🐾 Building your plan… finding worksheets…"):
+                        global_used = get_all_used_worksheet_ids() if avoid_repeats else set()
+                        plan_data = generate_plan(num_days, selected_lit, selected_num, global_used)
+                        plan_id = save_plan(
+                            plan_name, holiday_name, num_days, plan_data,
+                            course_file_id=st.session_state.np_course_file_id
+                        )
+                    # Reset step state
+                    for k in ["np_step", "np_course_file_id", "np_detected",
+                              "np_selected_lit", "np_selected_num"]:
+                        st.session_state.pop(k, None)
+                    st.success(f"✅ Plan '{plan_name}' created for {num_days} days!")
+                    st.session_state.view_plan_id = plan_id
+                    st.session_state.page = "view_plan"
+                    st.rerun()
 
 
 # ══════════════════════════════════════════════════════════════════════════════
 # PAGE: MY PLANS
 # ══════════════════════════════════════════════════════════════════════════════
 def page_my_plans():
-    st.markdown("# 📚 My Holiday Plans")
+    st.markdown("# 📚 My Plans & Course Files")
     st.markdown("---")
 
-    plans = get_all_plans()
-    if not plans:
-        st.info("No plans yet. Click **✨ New Plan** to create your first one!")
-        return
+    tab_plans, tab_files = st.tabs(["📅 Holiday Plans", "📂 Course File Library"])
 
-    for p in plans:
-        with st.container():
-            st.markdown(f"""<div class="plan-card">
-                <b>{p['name']}</b> &nbsp;·&nbsp; {p['holiday_name'] or 'Holiday'} &nbsp;·&nbsp;
-                {p['num_days']} days &nbsp;·&nbsp; <i>Created {p['created_at'][:10]}</i>
-            </div>""", unsafe_allow_html=True)
-            c1, c2 = st.columns([1, 5])
-            with c1:
-                if st.button("View", key=f"view_{p['id']}"):
-                    st.session_state.view_plan_id = p["id"]
-                    st.session_state.page = "view_plan"
-                    st.rerun()
-            with c2:
-                if st.button("🗑️ Delete", key=f"del_{p['id']}"):
-                    delete_plan(p["id"])
-                    st.success("Plan deleted.")
-                    st.rerun()
+    with tab_plans:
+        plans = get_all_plans()
+        if not plans:
+            st.info("No plans yet. Click **✨ New Plan** to create your first one!")
+        else:
+            for p in plans:
+                with st.container():
+                    st.markdown(f"""<div class="plan-card">
+                        <b>{p['name']}</b> &nbsp;·&nbsp; {p['holiday_name'] or 'Holiday'} &nbsp;·&nbsp;
+                        {p['num_days']} days &nbsp;·&nbsp; <i>Created {p['created_at'][:10]}</i>
+                    </div>""", unsafe_allow_html=True)
+                    c1, c2 = st.columns([1, 5])
+                    with c1:
+                        if st.button("View", key=f"view_{p['id']}"):
+                            st.session_state.view_plan_id = p["id"]
+                            st.session_state.page = "view_plan"
+                            st.rerun()
+                    with c2:
+                        if st.button("🗑️ Delete", key=f"del_{p['id']}"):
+                            delete_plan(p["id"])
+                            st.success("Plan deleted.")
+                            st.rerun()
+
+    with tab_files:
+        st.markdown("#### Uploaded course PDFs")
+        st.markdown("These are available to reuse when creating future plans.")
+        files = get_all_course_files()
+        if not files:
+            st.info("No course files uploaded yet. Upload one when creating a new plan.")
+        else:
+            for cf in files:
+                with st.container():
+                    c1, c2 = st.columns([5, 1])
+                    with c1:
+                        st.markdown(f"**{cf['name']}**")
+                        st.caption(f"File: {cf['filename']}  ·  Uploaded {cf['uploaded_at'][:10]}")
+                    with c2:
+                        if st.button("🗑️", key=f"del_cf_{cf['id']}", help="Delete this file"):
+                            delete_course_file(cf["id"])
+                            st.success("File deleted.")
+                            st.rerun()
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -240,8 +388,13 @@ def page_view_plan():
     plan_data = plan["plan_data"]
 
     st.markdown(f"# 🐱 {plan['name']}")
+    course_label = ""
+    if plan.get("course_file_id"):
+        cf = get_course_file(plan["course_file_id"])
+        if cf:
+            course_label = f" · 📂 {cf['name']}"
     st.markdown(f"**{plan['holiday_name'] or 'Holiday'}** · {plan['num_days']} days · "
-                f"Created {plan['created_at'][:10]}")
+                f"Created {plan['created_at'][:10]}{course_label}")
     st.markdown("---")
 
     # ── Summary ───────────────────────────────────────────────────────────────
